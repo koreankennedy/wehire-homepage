@@ -17,7 +17,7 @@ export default function Footer() {
               치과위생사, 간호사 등 의료 전문직을 위한 맞춤 매칭 서비스.
             </p>
             <p className="text-sm text-gray-500">
-              서울특별시 강남구 테헤란로 123, 위하이어빌딩 5층
+              서울특별시 강남구 역삼로 19길 25
             </p>
           </div>
 
@@ -80,7 +80,7 @@ export default function Footer() {
         <div className="border-t border-gray-700 mt-12 pt-8">
           <div className="flex flex-col md:flex-row justify-between items-center gap-4">
             <p className="text-sm text-gray-500">
-              &copy; 2024 WeHire. All rights reserved.
+              &copy; 2025 WeHire. All rights reserved.
             </p>
             <div className="flex gap-6 text-sm text-gray-500">
               <Link href="/terms" className="hover:text-white transition-colors">
