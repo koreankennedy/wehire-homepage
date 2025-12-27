@@ -63,13 +63,13 @@ export default function Footer() {
                 </Link>
               </li>
               <li>
-                <a href="tel:02-1234-5678" className="hover:text-white transition-colors">
-                  02-1234-5678
+                <a href="tel:010-7931-8589" className="hover:text-white transition-colors">
+                  010-7931-8589
                 </a>
               </li>
               <li>
-                <a href="mailto:hello@wehire.co.kr" className="hover:text-white transition-colors">
-                  hello@wehire.co.kr
+                <a href="mailto:sun@fordentistry.ai" className="hover:text-white transition-colors">
+                  sun@fordentistry.ai
                 </a>
               </li>
             </ul>
