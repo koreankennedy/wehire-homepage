@@ -24,7 +24,7 @@ export default function PrivacyPage() {
           <h1 className="text-3xl md:text-4xl font-bold text-[#1A2B45] mb-2">
             개인정보처리방침
           </h1>
-          <p className="text-[#6B7280] mb-8">최종 수정일: 2025년 1월 1일</p>
+          <p className="text-[#6B7280] mb-8">최종 수정일: 2026년 1월 1일</p>
 
           <div className="prose prose-gray max-w-none">
             <section className="mb-8">
@@ -177,7 +177,7 @@ export default function PrivacyPage() {
                 부칙
               </h2>
               <p className="text-[#6B7280] leading-relaxed">
-                본 개인정보처리방침은 2025년 1월 1일부터 시행됩니다.
+                본 개인정보처리방침은 2026년 1월 1일부터 시행됩니다.
               </p>
             </section>
           </div>

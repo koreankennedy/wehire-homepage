@@ -24,7 +24,7 @@ export default function TermsPage() {
           <h1 className="text-3xl md:text-4xl font-bold text-[#1A2B45] mb-2">
             이용약관
           </h1>
-          <p className="text-[#6B7280] mb-8">최종 수정일: 2025년 1월 1일</p>
+          <p className="text-[#6B7280] mb-8">최종 수정일: 2026년 1월 1일</p>
 
           <div className="prose prose-gray max-w-none">
             <section className="mb-8">
@@ -138,7 +138,7 @@ export default function TermsPage() {
                 부칙
               </h2>
               <p className="text-[#6B7280] leading-relaxed">
-                본 약관은 2025년 1월 1일부터 시행됩니다.
+                본 약관은 2026년 1월 1일부터 시행됩니다.
               </p>
             </section>
           </div>
