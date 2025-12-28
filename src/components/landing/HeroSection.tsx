@@ -127,29 +127,6 @@ export default function HeroSection() {
           </motion.div>
         </div>
 
-        {/* Trust Badges */}
-        <motion.div
-          initial={{ opacity: 0, y: 30 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8, delay: 0.6 }}
-          className="mt-16 text-center"
-        >
-          <p className="text-sm text-[#6B7280] mb-4">신뢰할 수 있는 데이터 기반 매칭</p>
-          <div className="flex flex-wrap justify-center gap-8 text-[#6B7280]">
-            <div className="flex items-center gap-2">
-              <div className="w-2 h-2 bg-[#48CBB0] rounded-full" />
-              <span className="text-sm">4대보험 데이터 연동</span>
-            </div>
-            <div className="flex items-center gap-2">
-              <div className="w-2 h-2 bg-[#1A2B45] rounded-full" />
-              <span className="text-sm">실시간 매출 분석</span>
-            </div>
-            <div className="flex items-center gap-2">
-              <div className="w-2 h-2 bg-[#D4AF37] rounded-full" />
-              <span className="text-sm">AI 인터뷰 시스템</span>
-            </div>
-          </div>
-        </motion.div>
       </div>
     </section>
   );
