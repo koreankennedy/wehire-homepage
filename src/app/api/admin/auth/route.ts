@@ -1,21 +1,21 @@
 import { NextResponse } from "next/server";
 
-const ADMIN_PASSWORD = process.env.ADMIN_PASSWORD || "wehire2024!";
+const ADMIN_PASSWORD = "wehire2024!";
 
 export async function POST(request: Request) {
   try {
-    const body = await request.json();
+    const text = await request.text();
+    const body = JSON.parse(text);
     const { password } = body;
 
     if (password === ADMIN_PASSWORD) {
       const response = NextResponse.json({ success: true });
 
-      // Set HTTP-only cookie for session
       response.cookies.set("admin_auth", "authenticated", {
         httpOnly: true,
-        secure: process.env.NODE_ENV === "production",
+        secure: true,
         sameSite: "strict",
-        maxAge: 60 * 60 * 24, // 24 hours
+        maxAge: 60 * 60 * 24,
         path: "/",
       });
 
@@ -27,9 +27,10 @@ export async function POST(request: Request) {
       { status: 401 }
     );
   } catch (error) {
-    console.error("Auth error:", error);
+    const errorMessage = error instanceof Error ? error.message : "Unknown error";
+    console.error("Auth error:", errorMessage);
     return NextResponse.json(
-      { error: "인증 중 오류가 발생했습니다." },
+      { error: `인증 오류: ${errorMessage}` },
       { status: 500 }
     );
   }
