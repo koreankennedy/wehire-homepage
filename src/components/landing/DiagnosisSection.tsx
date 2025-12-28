@@ -102,14 +102,14 @@ export default function DiagnosisSection() {
               <button
                 key={step.id}
                 onClick={() => setActiveStep(index)}
-                className={`flex items-center gap-2 px-4 md:px-6 py-3 rounded-xl font-medium transition-all ${
+                className={`flex items-center gap-2 px-3 md:px-6 py-3 rounded-xl font-medium transition-all ${
                   activeStep === index
                     ? "bg-white text-[#1A2B45] shadow-md"
                     : "text-[#6B7280] hover:text-[#1A2B45]"
                 }`}
               >
                 <span
-                  className={`w-6 h-6 rounded-full flex items-center justify-center text-xs font-bold ${
+                  className={`w-6 h-6 rounded-full flex items-center justify-center text-xs font-bold shrink-0 ${
                     activeStep === index
                       ? "bg-[#48CBB0] text-white"
                       : activeStep > index
@@ -123,7 +123,7 @@ export default function DiagnosisSection() {
                     step.id
                   )}
                 </span>
-                <span className="hidden md:inline">{step.title}</span>
+                <span className="text-xs md:text-sm whitespace-nowrap">{step.title}</span>
               </button>
             ))}
           </div>
