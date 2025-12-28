@@ -112,16 +112,10 @@ export default function DiagnosisSection() {
                   className={`w-6 h-6 rounded-full flex items-center justify-center text-xs font-bold shrink-0 ${
                     activeStep === index
                       ? "bg-[#48CBB0] text-white"
-                      : activeStep > index
-                      ? "bg-[#48CBB0] text-white"
                       : "bg-[#E5E7EB] text-[#6B7280]"
                   }`}
                 >
-                  {activeStep > index ? (
-                    <Check className="w-3 h-3" />
-                  ) : (
-                    step.id
-                  )}
+                  {step.id}
                 </span>
                 <span className="text-xs md:text-sm whitespace-nowrap">{step.title}</span>
               </button>

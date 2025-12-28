@@ -26,14 +26,20 @@ const profileFeatures = [
   },
 ];
 
-// 월별 입사/퇴사 데이터
+// 월별 입사/퇴사 데이터 (12개월)
 const monthlyData = [
-  { month: "1월", 입사: 3, 퇴사: 1 },
-  { month: "2월", 입사: 2, 퇴사: 0 },
-  { month: "3월", 입사: 4, 퇴사: 1 },
+  { month: "1월", 입사: 2, 퇴사: 1 },
+  { month: "2월", 입사: 1, 퇴사: 0 },
+  { month: "3월", 입사: 3, 퇴사: 1 },
   { month: "4월", 입사: 1, 퇴사: 0 },
-  { month: "5월", 입사: 2, 퇴사: 1 },
-  { month: "6월", 입사: 3, 퇴사: 0 },
+  { month: "5월", 입사: 2, 퇴사: 0 },
+  { month: "6월", 입사: 2, 퇴사: 1 },
+  { month: "7월", 입사: 1, 퇴사: 0 },
+  { month: "8월", 입사: 2, 퇴사: 0 },
+  { month: "9월", 입사: 3, 퇴사: 1 },
+  { month: "10월", 입사: 1, 퇴사: 0 },
+  { month: "11월", 입사: 2, 퇴사: 0 },
+  { month: "12월", 입사: 1, 퇴사: 0 },
 ];
 
 export default function SuperProfileSection() {
@@ -166,41 +172,52 @@ export default function SuperProfileSection() {
                     </div>
                   )}
                   {feature.title === "이직률" && (
-                    <div className="h-28">
-                      {/* 범례 */}
-                      <div className="flex justify-end gap-3 mb-2 text-xs">
-                        <div className="flex items-center gap-1">
-                          <div className="w-2 h-2 bg-[#48CBB0] rounded-sm" />
-                          <span className="text-[#6B7280]">입사</span>
-                        </div>
-                        <div className="flex items-center gap-1">
-                          <div className="w-2 h-2 bg-[#EF4444] rounded-sm" />
-                          <span className="text-[#6B7280]">퇴사</span>
+                    <div className="space-y-2">
+                      {/* 근속률 강조 배지 */}
+                      <div className="flex items-center justify-between">
+                        <span className="px-2 py-1 bg-[#D4AF37]/10 text-[#D4AF37] text-[10px] font-bold rounded-full">
+                          근속률 상위 5%
+                        </span>
+                        <div className="flex gap-3 text-[10px]">
+                          <div className="flex items-center gap-1">
+                            <div className="w-2 h-2 bg-[#48CBB0] rounded-sm" />
+                            <span className="text-[#6B7280]">입사</span>
+                          </div>
+                          <div className="flex items-center gap-1">
+                            <div className="w-2 h-2 bg-[#EF4444] rounded-sm" />
+                            <span className="text-[#6B7280]">퇴사</span>
+                          </div>
                         </div>
                       </div>
                       {/* 막대 차트 */}
-                      <div className="flex items-end justify-between gap-1 h-20">
+                      <div className="flex items-end justify-between gap-0.5 h-16">
                         {monthlyData.map((data, i) => (
                           <div key={i} className="flex-1 flex flex-col items-center">
-                            <div className="flex gap-0.5 items-end h-16">
+                            <div className="flex gap-px items-end h-12">
                               <motion.div
-                                className="w-2 bg-[#48CBB0] rounded-t"
+                                className="w-1.5 bg-[#48CBB0] rounded-t"
                                 initial={{ height: 0 }}
-                                whileInView={{ height: `${data.입사 * 20}%` }}
+                                whileInView={{ height: `${data.입사 * 25}%` }}
                                 viewport={{ once: true }}
-                                transition={{ duration: 0.5, delay: i * 0.1 }}
+                                transition={{ duration: 0.4, delay: i * 0.05 }}
                               />
                               <motion.div
-                                className="w-2 bg-[#EF4444] rounded-t"
+                                className="w-1.5 bg-[#EF4444] rounded-t"
                                 initial={{ height: 0 }}
-                                whileInView={{ height: `${data.퇴사 * 20}%` }}
+                                whileInView={{ height: `${data.퇴사 * 25}%` }}
                                 viewport={{ once: true }}
-                                transition={{ duration: 0.5, delay: i * 0.1 + 0.05 }}
+                                transition={{ duration: 0.4, delay: i * 0.05 + 0.02 }}
                               />
                             </div>
-                            <span className="text-[8px] text-[#6B7280] mt-1">{data.month.slice(0, 1)}</span>
+                            <span className="text-[7px] text-[#6B7280] mt-0.5">{data.month.replace("월", "")}</span>
                           </div>
                         ))}
+                      </div>
+                      {/* 요약 통계 */}
+                      <div className="flex justify-between text-[10px] pt-1 border-t border-gray-100">
+                        <span className="text-[#6B7280]">연간 입사 <span className="text-[#48CBB0] font-bold">21명</span></span>
+                        <span className="text-[#6B7280]">연간 퇴사 <span className="text-[#EF4444] font-bold">4명</span></span>
+                        <span className="text-[#6B7280]">이직률 <span className="text-[#1A2B45] font-bold">5%</span></span>
                       </div>
                     </div>
                   )}
