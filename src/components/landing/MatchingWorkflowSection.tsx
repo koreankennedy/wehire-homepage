@@ -293,263 +293,402 @@ export default function MatchingWorkflowSection() {
           </div>
         </motion.div>
 
-        {/* Workflow Steps - Interactive */}
-        <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-4 mb-8">
+        {/* Mobile Layout - 각 단계별 카드 + 콘텐츠 인터리브 */}
+        <div className="md:hidden space-y-8">
           {workflowSteps.map((step, index) => (
             <motion.div
               key={step.step}
               initial={{ opacity: 0, y: 30 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
-              transition={{ duration: 0.6, delay: index * 0.1 }}
-              onClick={() => setActiveStep(index)}
-              onMouseEnter={() => setActiveStep(index)}
-              className={`relative cursor-pointer transition-all duration-300 rounded-2xl p-5 border-2 ${
-                activeStep === index
-                  ? "bg-white shadow-lg border-[#48CBB0]"
-                  : "bg-[#F8F9FA] border-transparent hover:bg-white hover:shadow-md"
-              }`}
+              transition={{ duration: 0.6 }}
+              className="space-y-4"
             >
-              {/* Step Number & Emoji */}
-              <div className="flex items-center justify-between mb-3">
-                <div className={`w-10 h-10 rounded-xl flex items-center justify-center font-bold text-sm ${
-                  activeStep === index ? "bg-[#48CBB0] text-white" : "bg-[#1A2B45] text-white"
-                }`}>
-                  {step.step}
+              {/* Step Card */}
+              <div className="relative rounded-2xl p-5 border-2 bg-white shadow-lg border-[#48CBB0]">
+                <div className="flex items-center justify-between mb-3">
+                  <div className="w-10 h-10 rounded-xl flex items-center justify-center font-bold text-sm bg-[#48CBB0] text-white">
+                    {step.step}
+                  </div>
+                  <span className="text-2xl">{step.emoji}</span>
                 </div>
-                <span className="text-2xl">{step.emoji}</span>
+                <h3 className="text-lg font-bold text-[#1A2B45] mb-1">{step.title}</h3>
+                <p className="font-medium text-sm mb-1 text-[#48CBB0]">{step.description}</p>
+                <p className="text-xs text-[#6B7280]">{step.detail}</p>
               </div>
 
-              <h3 className="text-lg font-bold text-[#1A2B45] mb-1">
-                {step.title}
-              </h3>
-              <p className={`font-medium text-sm mb-1 ${activeStep === index ? "text-[#48CBB0]" : "text-[#6B7280]"}`}>
-                {step.description}
-              </p>
-              <p className="text-xs text-[#6B7280]">
-                {step.detail}
-              </p>
+              {/* Step Content */}
+              <div className="bg-[#F8F9FA] rounded-2xl p-4">
+                {/* App Mockup */}
+                <div className="bg-white rounded-2xl shadow-lg overflow-hidden mb-4">
+                  <div className="bg-[#1A2B45] p-3 flex items-center justify-between">
+                    <div className="flex items-center gap-2">
+                      <span className="text-white font-bold text-sm">WeHire</span>
+                      <span className="text-[#48CBB0] text-xs">Employer</span>
+                    </div>
+                    <div className="flex gap-1">
+                      <div className="w-1.5 h-1.5 rounded-full bg-white/30" />
+                      <div className="w-1.5 h-1.5 rounded-full bg-white/30" />
+                      <div className="w-1.5 h-1.5 rounded-full bg-white/30" />
+                    </div>
+                  </div>
+                  {StepScreens[index as keyof typeof StepScreens]()}
+                </div>
 
-              {/* Active Indicator */}
-              {activeStep === index && (
-                <motion.div
-                  layoutId="activeIndicator"
-                  className="absolute -bottom-2 left-1/2 -translate-x-1/2 w-0 h-0 border-l-8 border-r-8 border-t-8 border-l-transparent border-r-transparent border-t-[#48CBB0]"
-                />
-              )}
+                {/* Description */}
+                <ul className="space-y-2 text-[#6B7280] mb-4">
+                  {index === 0 && (
+                    <>
+                      <li className="flex items-start gap-2 text-sm">
+                        <CheckCircle className="w-4 h-4 text-[#48CBB0] mt-0.5 shrink-0" />
+                        <span>원하는 경력, 급여 조건을 선택하세요</span>
+                      </li>
+                      <li className="flex items-start gap-2 text-sm">
+                        <CheckCircle className="w-4 h-4 text-[#48CBB0] mt-0.5 shrink-0" />
+                        <span>AI가 최적의 후보자를 자동으로 매칭</span>
+                      </li>
+                    </>
+                  )}
+                  {index === 1 && (
+                    <>
+                      <li className="flex items-start gap-2 text-sm">
+                        <CheckCircle className="w-4 h-4 text-[#48CBB0] mt-0.5 shrink-0" />
+                        <span>AI 매칭 스코어로 한눈에 비교</span>
+                      </li>
+                      <li className="flex items-start gap-2 text-sm">
+                        <CheckCircle className="w-4 h-4 text-[#48CBB0] mt-0.5 shrink-0" />
+                        <span>관심 후보자에게 AI 인터뷰 요청</span>
+                      </li>
+                    </>
+                  )}
+                  {index === 2 && (
+                    <>
+                      <li className="flex items-start gap-2 text-sm">
+                        <CheckCircle className="w-4 h-4 text-[#48CBB0] mt-0.5 shrink-0" />
+                        <span>AI 인터뷰 분석 결과 및 등급 확인</span>
+                      </li>
+                      <li className="flex items-start gap-2 text-sm">
+                        <CheckCircle className="w-4 h-4 text-[#48CBB0] mt-0.5 shrink-0" />
+                        <span>채용 의뢰 또는 Drop 결정</span>
+                      </li>
+                    </>
+                  )}
+                  {index === 3 && (
+                    <>
+                      <li className="flex items-start gap-2 text-sm">
+                        <CheckCircle className="w-4 h-4 text-[#48CBB0] mt-0.5 shrink-0" />
+                        <span>전자 근로계약서 자동 생성 및 서명</span>
+                      </li>
+                      <li className="flex items-start gap-2 text-sm">
+                        <CheckCircle className="w-4 h-4 text-[#48CBB0] mt-0.5 shrink-0" />
+                        <span>온보딩 일정 자동 안내</span>
+                      </li>
+                    </>
+                  )}
+                </ul>
+
+                {/* Highlight Box */}
+                {index === 0 && (
+                  <div className="p-3 bg-amber-50 rounded-xl">
+                    <div className="flex items-center justify-between">
+                      <p className="font-bold text-[#D4AF37] text-xs">채용 공고 작성 불필요</p>
+                      <p className="text-xs font-bold text-[#48CBB0]">20시간 · 100만원 절약</p>
+                    </div>
+                  </div>
+                )}
+                {index === 1 && (
+                  <div className="p-3 bg-[#48CBB0]/10 rounded-xl">
+                    <div className="flex items-center justify-between">
+                      <p className="font-bold text-[#48CBB0] text-xs">서류 검토 자동화</p>
+                      <p className="text-xs font-bold text-[#48CBB0]">40시간 · 200만원 절약</p>
+                    </div>
+                  </div>
+                )}
+                {index === 2 && (
+                  <div className="p-3 bg-[#1A2B45]/5 rounded-xl">
+                    <div className="flex items-center justify-between">
+                      <p className="font-bold text-[#1A2B45] text-xs">면접 일정 조율 불필요</p>
+                      <p className="text-xs font-bold text-[#48CBB0]">30시간 · 250만원 절약</p>
+                    </div>
+                  </div>
+                )}
+                {index === 3 && (
+                  <div className="p-3 bg-gradient-to-r from-[#48CBB0]/10 to-[#D4AF37]/10 rounded-xl">
+                    <div className="flex items-center justify-between mb-2">
+                      <p className="font-bold text-[#D4AF37] text-xs">연봉 협상 자동 완료</p>
+                      <p className="text-xs font-bold text-[#D4AF37]">30시간 · 192만원 절약</p>
+                    </div>
+                    <div className="pt-2 border-t border-[#D4AF37]/20 flex justify-between items-center">
+                      <span className="text-xs font-medium text-[#1A2B45]">총 절약 효과</span>
+                      <span className="text-sm font-bold text-[#D4AF37]">120시간 · 742만원</span>
+                    </div>
+                  </div>
+                )}
+              </div>
             </motion.div>
           ))}
         </div>
 
-        {/* App Preview with Carousel */}
-        <motion.div
-          initial={{ opacity: 0, y: 30 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.6 }}
-          className="bg-[#F8F9FA] rounded-2xl p-6 md:p-8 mb-12"
-        >
-          <div className="grid md:grid-cols-2 gap-8 items-center">
-            {/* App Mockup */}
-            <div className="relative">
-              <div className="bg-white rounded-2xl shadow-lg overflow-hidden">
-                {/* Phone Header */}
-                <div className="bg-[#1A2B45] p-4 flex items-center justify-between">
-                  <div className="flex items-center gap-2">
-                    <span className="text-white font-bold">WeHire</span>
-                    <span className="text-[#48CBB0] text-xs">Employer</span>
+        {/* Desktop Layout - 기존 방식 유지 */}
+        <div className="hidden md:block">
+          {/* Workflow Steps - Interactive */}
+          <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-4 mb-8">
+            {workflowSteps.map((step, index) => (
+              <motion.div
+                key={step.step}
+                initial={{ opacity: 0, y: 30 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.6, delay: index * 0.1 }}
+                onClick={() => setActiveStep(index)}
+                onMouseEnter={() => setActiveStep(index)}
+                className={`relative cursor-pointer transition-all duration-300 rounded-2xl p-5 border-2 ${
+                  activeStep === index
+                    ? "bg-white shadow-lg border-[#48CBB0]"
+                    : "bg-[#F8F9FA] border-transparent hover:bg-white hover:shadow-md"
+                }`}
+              >
+                {/* Step Number & Emoji */}
+                <div className="flex items-center justify-between mb-3">
+                  <div className={`w-10 h-10 rounded-xl flex items-center justify-center font-bold text-sm ${
+                    activeStep === index ? "bg-[#48CBB0] text-white" : "bg-[#1A2B45] text-white"
+                  }`}>
+                    {step.step}
                   </div>
-                  <div className="flex gap-1.5">
-                    <div className="w-2 h-2 rounded-full bg-white/30" />
-                    <div className="w-2 h-2 rounded-full bg-white/30" />
-                    <div className="w-2 h-2 rounded-full bg-white/30" />
-                  </div>
+                  <span className="text-2xl">{step.emoji}</span>
                 </div>
 
-                {/* Dynamic Screen Content */}
-                <AnimatePresence mode="wait">
+                <h3 className="text-lg font-bold text-[#1A2B45] mb-1">
+                  {step.title}
+                </h3>
+                <p className={`font-medium text-sm mb-1 ${activeStep === index ? "text-[#48CBB0]" : "text-[#6B7280]"}`}>
+                  {step.description}
+                </p>
+                <p className="text-xs text-[#6B7280]">
+                  {step.detail}
+                </p>
+
+                {/* Active Indicator */}
+                {activeStep === index && (
                   <motion.div
-                    key={activeStep}
-                    initial={{ opacity: 0, x: 20 }}
-                    animate={{ opacity: 1, x: 0 }}
-                    exit={{ opacity: 0, x: -20 }}
-                    transition={{ duration: 0.3 }}
-                    className="min-h-[320px]"
-                  >
-                    {StepScreens[activeStep as keyof typeof StepScreens]()}
-                  </motion.div>
-                </AnimatePresence>
-              </div>
+                    layoutId="activeIndicator"
+                    className="absolute -bottom-2 left-1/2 -translate-x-1/2 w-0 h-0 border-l-8 border-r-8 border-t-8 border-l-transparent border-r-transparent border-t-[#48CBB0]"
+                  />
+                )}
+              </motion.div>
+            ))}
+          </div>
 
-              {/* Carousel Controls */}
-              <div className="flex items-center justify-center gap-4 mt-4">
-                <button
-                  onClick={handlePrev}
-                  className="w-10 h-10 rounded-full bg-white shadow-md flex items-center justify-center hover:bg-[#F8F9FA] transition-colors"
-                >
-                  <ChevronLeft className="w-5 h-5 text-[#1A2B45]" />
-                </button>
+          {/* App Preview with Carousel */}
+          <motion.div
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.6 }}
+            className="bg-[#F8F9FA] rounded-2xl p-6 md:p-8 mb-12"
+          >
+            <div className="grid md:grid-cols-2 gap-8 items-center">
+              {/* App Mockup */}
+              <div className="relative">
+                <div className="bg-white rounded-2xl shadow-lg overflow-hidden">
+                  {/* Phone Header */}
+                  <div className="bg-[#1A2B45] p-4 flex items-center justify-between">
+                    <div className="flex items-center gap-2">
+                      <span className="text-white font-bold">WeHire</span>
+                      <span className="text-[#48CBB0] text-xs">Employer</span>
+                    </div>
+                    <div className="flex gap-1.5">
+                      <div className="w-2 h-2 rounded-full bg-white/30" />
+                      <div className="w-2 h-2 rounded-full bg-white/30" />
+                      <div className="w-2 h-2 rounded-full bg-white/30" />
+                    </div>
+                  </div>
 
-                {/* Dots Indicator */}
-                <div className="flex gap-2">
-                  {workflowSteps.map((_, index) => (
-                    <button
-                      key={index}
-                      onClick={() => setActiveStep(index)}
-                      className={`w-2.5 h-2.5 rounded-full transition-all ${
-                        activeStep === index ? "bg-[#48CBB0] w-6" : "bg-[#D1D5DB]"
-                      }`}
-                    />
-                  ))}
+                  {/* Dynamic Screen Content */}
+                  <AnimatePresence mode="wait">
+                    <motion.div
+                      key={activeStep}
+                      initial={{ opacity: 0, x: 20 }}
+                      animate={{ opacity: 1, x: 0 }}
+                      exit={{ opacity: 0, x: -20 }}
+                      transition={{ duration: 0.3 }}
+                      className="min-h-[320px]"
+                    >
+                      {StepScreens[activeStep as keyof typeof StepScreens]()}
+                    </motion.div>
+                  </AnimatePresence>
                 </div>
 
-                <button
-                  onClick={handleNext}
-                  className="w-10 h-10 rounded-full bg-white shadow-md flex items-center justify-center hover:bg-[#F8F9FA] transition-colors"
-                >
-                  <ChevronRight className="w-5 h-5 text-[#1A2B45]" />
-                </button>
+                {/* Carousel Controls */}
+                <div className="flex items-center justify-center gap-4 mt-4">
+                  <button
+                    onClick={handlePrev}
+                    className="w-10 h-10 rounded-full bg-white shadow-md flex items-center justify-center hover:bg-[#F8F9FA] transition-colors"
+                  >
+                    <ChevronLeft className="w-5 h-5 text-[#1A2B45]" />
+                  </button>
+
+                  {/* Dots Indicator */}
+                  <div className="flex gap-2">
+                    {workflowSteps.map((_, index) => (
+                      <button
+                        key={index}
+                        onClick={() => setActiveStep(index)}
+                        className={`w-2.5 h-2.5 rounded-full transition-all ${
+                          activeStep === index ? "bg-[#48CBB0] w-6" : "bg-[#D1D5DB]"
+                        }`}
+                      />
+                    ))}
+                  </div>
+
+                  <button
+                    onClick={handleNext}
+                    className="w-10 h-10 rounded-full bg-white shadow-md flex items-center justify-center hover:bg-[#F8F9FA] transition-colors"
+                  >
+                    <ChevronRight className="w-5 h-5 text-[#1A2B45]" />
+                  </button>
+                </div>
               </div>
-            </div>
 
-            {/* Description */}
-            <div>
-              <h3 className="text-2xl font-bold text-[#1A2B45] mb-2">
-                {workflowSteps[activeStep].title}
-              </h3>
-              <p className="text-[#48CBB0] font-medium mb-4">{workflowSteps[activeStep].description}</p>
+              {/* Description */}
+              <div>
+                <h3 className="text-2xl font-bold text-[#1A2B45] mb-2">
+                  {workflowSteps[activeStep].title}
+                </h3>
+                <p className="text-[#48CBB0] font-medium mb-4">{workflowSteps[activeStep].description}</p>
 
-              <ul className="space-y-3 text-[#6B7280] mb-6">
+                <ul className="space-y-3 text-[#6B7280] mb-6">
+                  {activeStep === 0 && (
+                    <>
+                      <li className="flex items-start gap-2">
+                        <CheckCircle className="w-5 h-5 text-[#48CBB0] mt-0.5 shrink-0" />
+                        <span>원하는 경력, 급여 조건을 선택하세요</span>
+                      </li>
+                      <li className="flex items-start gap-2">
+                        <CheckCircle className="w-5 h-5 text-[#48CBB0] mt-0.5 shrink-0" />
+                        <span>근무 환경, 복지 조건도 세부 설정 가능</span>
+                      </li>
+                      <li className="flex items-start gap-2">
+                        <CheckCircle className="w-5 h-5 text-[#48CBB0] mt-0.5 shrink-0" />
+                        <span>AI가 최적의 후보자를 자동으로 매칭</span>
+                      </li>
+                    </>
+                  )}
+                  {activeStep === 1 && (
+                    <>
+                      <li className="flex items-start gap-2">
+                        <CheckCircle className="w-5 h-5 text-[#48CBB0] mt-0.5 shrink-0" />
+                        <span>AI가 산출한 매칭 스코어로 한눈에 비교</span>
+                      </li>
+                      <li className="flex items-start gap-2">
+                        <CheckCircle className="w-5 h-5 text-[#48CBB0] mt-0.5 shrink-0" />
+                        <span>슈퍼 프로필로 DNA 진단 및 경력 검증</span>
+                      </li>
+                      <li className="flex items-start gap-2">
+                        <CheckCircle className="w-5 h-5 text-[#48CBB0] mt-0.5 shrink-0" />
+                        <span>관심 후보자에게 AI 인터뷰 요청</span>
+                      </li>
+                    </>
+                  )}
+                  {activeStep === 2 && (
+                    <>
+                      <li className="flex items-start gap-2">
+                        <CheckCircle className="w-5 h-5 text-[#48CBB0] mt-0.5 shrink-0" />
+                        <span>AI 인터뷰 분석 결과 및 등급 확인</span>
+                      </li>
+                      <li className="flex items-start gap-2">
+                        <CheckCircle className="w-5 h-5 text-[#48CBB0] mt-0.5 shrink-0" />
+                        <span>이전 직장 동료 리뷰 데이터 열람</span>
+                      </li>
+                      <li className="flex items-start gap-2">
+                        <CheckCircle className="w-5 h-5 text-[#48CBB0] mt-0.5 shrink-0" />
+                        <span>채용 의뢰 또는 Drop 결정</span>
+                      </li>
+                    </>
+                  )}
+                  {activeStep === 3 && (
+                    <>
+                      <li className="flex items-start gap-2">
+                        <CheckCircle className="w-5 h-5 text-[#48CBB0] mt-0.5 shrink-0" />
+                        <span>채용 조건 최종 확정</span>
+                      </li>
+                      <li className="flex items-start gap-2">
+                        <CheckCircle className="w-5 h-5 text-[#48CBB0] mt-0.5 shrink-0" />
+                        <span>전자 근로계약서 자동 생성 및 서명</span>
+                      </li>
+                      <li className="flex items-start gap-2">
+                        <CheckCircle className="w-5 h-5 text-[#48CBB0] mt-0.5 shrink-0" />
+                        <span>온보딩 일정 자동 안내</span>
+                      </li>
+                    </>
+                  )}
+                </ul>
+
+                {/* 단계별 하이라이트 박스 */}
                 {activeStep === 0 && (
-                  <>
-                    <li className="flex items-start gap-2">
-                      <CheckCircle className="w-5 h-5 text-[#48CBB0] mt-0.5 shrink-0" />
-                      <span>원하는 경력, 급여 조건을 선택하세요</span>
-                    </li>
-                    <li className="flex items-start gap-2">
-                      <CheckCircle className="w-5 h-5 text-[#48CBB0] mt-0.5 shrink-0" />
-                      <span>근무 환경, 복지 조건도 세부 설정 가능</span>
-                    </li>
-                    <li className="flex items-start gap-2">
-                      <CheckCircle className="w-5 h-5 text-[#48CBB0] mt-0.5 shrink-0" />
-                      <span>AI가 최적의 후보자를 자동으로 매칭</span>
-                    </li>
-                  </>
+                  <div className="p-4 bg-amber-50 rounded-xl">
+                    <div className="flex items-start justify-between">
+                      <div>
+                        <p className="font-bold text-[#D4AF37] text-sm mb-1">채용 공고 작성 불필요</p>
+                        <p className="text-xs text-[#6B7280]">조건만 입력하면 AI가 자동으로 매칭합니다.</p>
+                      </div>
+                      <div className="text-right shrink-0 ml-4">
+                        <p className="text-[10px] text-[#6B7280]">이 단계에서 절약</p>
+                        <p className="text-xs font-bold text-[#48CBB0]">20시간 · 100만원</p>
+                      </div>
+                    </div>
+                  </div>
                 )}
                 {activeStep === 1 && (
-                  <>
-                    <li className="flex items-start gap-2">
-                      <CheckCircle className="w-5 h-5 text-[#48CBB0] mt-0.5 shrink-0" />
-                      <span>AI가 산출한 매칭 스코어로 한눈에 비교</span>
-                    </li>
-                    <li className="flex items-start gap-2">
-                      <CheckCircle className="w-5 h-5 text-[#48CBB0] mt-0.5 shrink-0" />
-                      <span>슈퍼 프로필로 DNA 진단 및 경력 검증</span>
-                    </li>
-                    <li className="flex items-start gap-2">
-                      <CheckCircle className="w-5 h-5 text-[#48CBB0] mt-0.5 shrink-0" />
-                      <span>관심 후보자에게 AI 인터뷰 요청</span>
-                    </li>
-                  </>
+                  <div className="p-4 bg-[#48CBB0]/10 rounded-xl">
+                    <div className="flex items-start justify-between">
+                      <div>
+                        <p className="font-bold text-[#48CBB0] text-sm mb-1">서류 검토 자동화</p>
+                        <p className="text-xs text-[#6B7280]">검증된 후보자만 슈퍼 프로필로 확인하세요.</p>
+                      </div>
+                      <div className="text-right shrink-0 ml-4">
+                        <p className="text-[10px] text-[#6B7280]">이 단계에서 절약</p>
+                        <p className="text-xs font-bold text-[#48CBB0]">40시간 · 200만원</p>
+                      </div>
+                    </div>
+                  </div>
                 )}
                 {activeStep === 2 && (
-                  <>
-                    <li className="flex items-start gap-2">
-                      <CheckCircle className="w-5 h-5 text-[#48CBB0] mt-0.5 shrink-0" />
-                      <span>AI 인터뷰 분석 결과 및 등급 확인</span>
-                    </li>
-                    <li className="flex items-start gap-2">
-                      <CheckCircle className="w-5 h-5 text-[#48CBB0] mt-0.5 shrink-0" />
-                      <span>이전 직장 동료 리뷰 데이터 열람</span>
-                    </li>
-                    <li className="flex items-start gap-2">
-                      <CheckCircle className="w-5 h-5 text-[#48CBB0] mt-0.5 shrink-0" />
-                      <span>채용 의뢰 또는 Drop 결정</span>
-                    </li>
-                  </>
+                  <div className="p-4 bg-[#1A2B45]/5 rounded-xl">
+                    <div className="flex items-start justify-between">
+                      <div>
+                        <p className="font-bold text-[#1A2B45] text-sm mb-1">면접 일정 조율 불필요</p>
+                        <p className="text-xs text-[#6B7280]">AI가 24시간 자동으로 인터뷰를 진행합니다.</p>
+                      </div>
+                      <div className="text-right shrink-0 ml-4">
+                        <p className="text-[10px] text-[#6B7280]">이 단계에서 절약</p>
+                        <p className="text-xs font-bold text-[#48CBB0]">30시간 · 250만원</p>
+                      </div>
+                    </div>
+                  </div>
                 )}
                 {activeStep === 3 && (
-                  <>
-                    <li className="flex items-start gap-2">
-                      <CheckCircle className="w-5 h-5 text-[#48CBB0] mt-0.5 shrink-0" />
-                      <span>채용 조건 최종 확정</span>
-                    </li>
-                    <li className="flex items-start gap-2">
-                      <CheckCircle className="w-5 h-5 text-[#48CBB0] mt-0.5 shrink-0" />
-                      <span>전자 근로계약서 자동 생성 및 서명</span>
-                    </li>
-                    <li className="flex items-start gap-2">
-                      <CheckCircle className="w-5 h-5 text-[#48CBB0] mt-0.5 shrink-0" />
-                      <span>온보딩 일정 자동 안내</span>
-                    </li>
-                  </>
+                  <div className="p-4 bg-gradient-to-r from-[#48CBB0]/10 to-[#D4AF37]/10 rounded-xl">
+                    <div className="flex items-start justify-between">
+                      <div>
+                        <p className="font-bold text-[#D4AF37] text-sm mb-1">연봉 협상 자동 완료</p>
+                        <p className="text-xs text-[#6B7280]">전자계약까지 원스톱으로 처리됩니다.</p>
+                      </div>
+                      <div className="text-right shrink-0 ml-4">
+                        <p className="text-[10px] text-[#6B7280]">이 단계에서 절약</p>
+                        <p className="text-xs font-bold text-[#D4AF37]">30시간 · 192만원</p>
+                      </div>
+                    </div>
+                    <div className="mt-3 pt-3 border-t border-[#D4AF37]/20 flex justify-between items-center">
+                      <span className="text-xs font-medium text-[#1A2B45]">총 절약 효과</span>
+                      <span className="text-sm font-bold text-[#D4AF37]">120시간 · 742만원</span>
+                    </div>
+                  </div>
                 )}
-              </ul>
-
-              {/* 단계별 하이라이트 박스 */}
-              {activeStep === 0 && (
-                <div className="p-4 bg-amber-50 rounded-xl">
-                  <div className="flex items-start justify-between">
-                    <div>
-                      <p className="font-bold text-[#D4AF37] text-sm mb-1">채용 공고 작성 불필요</p>
-                      <p className="text-xs text-[#6B7280]">조건만 입력하면 AI가 자동으로 매칭합니다.</p>
-                    </div>
-                    <div className="text-right shrink-0 ml-4">
-                      <p className="text-[10px] text-[#6B7280]">이 단계에서 절약</p>
-                      <p className="text-xs font-bold text-[#48CBB0]">20시간 · 100만원</p>
-                    </div>
-                  </div>
-                </div>
-              )}
-              {activeStep === 1 && (
-                <div className="p-4 bg-[#48CBB0]/10 rounded-xl">
-                  <div className="flex items-start justify-between">
-                    <div>
-                      <p className="font-bold text-[#48CBB0] text-sm mb-1">서류 검토 자동화</p>
-                      <p className="text-xs text-[#6B7280]">검증된 후보자만 슈퍼 프로필로 확인하세요.</p>
-                    </div>
-                    <div className="text-right shrink-0 ml-4">
-                      <p className="text-[10px] text-[#6B7280]">이 단계에서 절약</p>
-                      <p className="text-xs font-bold text-[#48CBB0]">40시간 · 200만원</p>
-                    </div>
-                  </div>
-                </div>
-              )}
-              {activeStep === 2 && (
-                <div className="p-4 bg-[#1A2B45]/5 rounded-xl">
-                  <div className="flex items-start justify-between">
-                    <div>
-                      <p className="font-bold text-[#1A2B45] text-sm mb-1">면접 일정 조율 불필요</p>
-                      <p className="text-xs text-[#6B7280]">AI가 24시간 자동으로 인터뷰를 진행합니다.</p>
-                    </div>
-                    <div className="text-right shrink-0 ml-4">
-                      <p className="text-[10px] text-[#6B7280]">이 단계에서 절약</p>
-                      <p className="text-xs font-bold text-[#48CBB0]">30시간 · 250만원</p>
-                    </div>
-                  </div>
-                </div>
-              )}
-              {activeStep === 3 && (
-                <div className="p-4 bg-gradient-to-r from-[#48CBB0]/10 to-[#D4AF37]/10 rounded-xl">
-                  <div className="flex items-start justify-between">
-                    <div>
-                      <p className="font-bold text-[#D4AF37] text-sm mb-1">연봉 협상 자동 완료</p>
-                      <p className="text-xs text-[#6B7280]">전자계약까지 원스톱으로 처리됩니다.</p>
-                    </div>
-                    <div className="text-right shrink-0 ml-4">
-                      <p className="text-[10px] text-[#6B7280]">이 단계에서 절약</p>
-                      <p className="text-xs font-bold text-[#D4AF37]">30시간 · 192만원</p>
-                    </div>
-                  </div>
-                  <div className="mt-3 pt-3 border-t border-[#D4AF37]/20 flex justify-between items-center">
-                    <span className="text-xs font-medium text-[#1A2B45]">총 절약 효과</span>
-                    <span className="text-sm font-bold text-[#D4AF37]">120시간 · 742만원</span>
-                  </div>
-                </div>
-              )}
+              </div>
             </div>
-          </div>
-        </motion.div>
+          </motion.div>
+        </div>
 
         {/* CTA */}
         <motion.div
